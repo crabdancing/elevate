@@ -15,6 +15,8 @@ use RunningAs::*;
 
 #[cfg(unix)]
 /// We relie on the $UID or /proc/self/status
+/// 
+/// Maybe switch to geteuid() in the future?
 pub fn check() -> Result<RunningAs, Box<dyn Error>> {
     let uid: String = match std::env::var("UID") {
         Ok(s) => s,

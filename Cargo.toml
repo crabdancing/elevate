@@ -3,6 +3,7 @@ name = "sudo"
 description = "Detect if you are running as root, restart self with sudo if needed"
 version = "0.2.0"
 authors = ["Stefan Schindler <dns2utf8@estada.ch>"]
+license = "MIT/Apache-2.0"
 edition = "2018"
 
 repository = "https://gitlab.com/dns2utf8/sudo.rs"

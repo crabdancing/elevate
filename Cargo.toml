@@ -1,7 +1,7 @@
 [package]
 name = "sudo"
 description = "Detect if you are running as root, restart self with sudo if needed"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Stefan Schindler <dns2utf8@estada.ch>"]
 license = "MIT/Apache-2.0"
 edition = "2018"
@@ -15,3 +15,7 @@ include = [
 
 [dependencies]
 log = "0.4"
+libc = "0.2"
+
+[dev-dependencies]
+simple_logger = "1.6"

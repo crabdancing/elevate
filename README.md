@@ -1,5 +1,7 @@
 # sudo
 
+[![crates.io](https://img.shields.io/crates/v/sudo)](https://crates.io/crates/sudo/)
+
 Detect if you are running as root, restart self with `sudo` if needed.
 
 The `sudo` program is required to be installed and setup correctly on the target system.

@@ -12,7 +12,7 @@ First, add sudo to your `Cargo.toml`:
 
 ```yaml
 [dependencies]
-sudo = "0.2"
+sudo = "0.3"
 ```
 
 In your `main.rs`:

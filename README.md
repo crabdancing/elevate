@@ -1,6 +1,6 @@
 # sudo
 
-[![crates.io](https://img.shields.io/crates/v/sudo)](https://crates.io/crates/sudo/)
+[![crates.io](https://img.shields.io/crates/v/sudo?logo=rust)](https://crates.io/crates/sudo/)
 
 Detect if you are running as root, restart self with `sudo` if needed.
 

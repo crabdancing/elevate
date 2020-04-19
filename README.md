@@ -2,7 +2,7 @@
 
 [![crates.io](https://img.shields.io/crates/v/sudo?logo=rust)](https://crates.io/crates/sudo/)
 
-Detect if you are running as root, restart self with `sudo` if needed.
+Detect if you are running as root, restart self with `sudo` if needed or setup uid zero when running with the SUID flag set.
 
 The `sudo` program is required to be installed and setup correctly on the target system.
 

@@ -4,7 +4,11 @@
 
 Detect if you are running as root, restart self with `sudo` if needed or setup uid zero when running with the SUID flag set.
 
-The `sudo` program is required to be installed and setup correctly on the target system.
+## Requirements
+
+* The `sudo` program is required to be installed and setup correctly on the target system.
+* Linux or Mac OS X tested
+    * It should work on *BSD. However, it is not tested.
 
 # Example:
 

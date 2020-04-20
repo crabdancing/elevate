@@ -1,6 +1,7 @@
 # sudo
 
 [![crates.io](https://img.shields.io/crates/v/sudo?logo=rust)](https://crates.io/crates/sudo/)
+[![docs.rs](https://docs.rs/sudo/badge.svg)](https://docs.rs/sudo)
 
 Detect if you are running as root, restart self with `sudo` if needed or setup uid zero when running with the SUID flag set.
 

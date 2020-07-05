@@ -17,7 +17,7 @@ First, add sudo to your `Cargo.toml`:
 
 ```yaml
 [dependencies]
-sudo = "0.3"
+sudo = "0.4"
 ```
 
 In your `main.rs`:
@@ -30,7 +30,27 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-If you are using logging based on the [log](https://crates.io/crates/log) infrastructure you will get 
+If you are using logging based on the [log infrastructure](https://crates.io/crates/log) you will get timestamped and formatted output.
+
+## Passing RUST_BACKTRACE
+
+The crate will automatically keep the setting of `RUST_BACKTRACE` intact if it is set to one of the following values:
+
+* `` <- empty string means no pass-through
+* `1` or `true` <- standard trace
+* `full` <- full trace
+
+```bash
+$ RUST_BACKTRACE=full cargo run --example backtrace
+2020-07-05 18:10:31,544 TRACE [sudo] Running as User
+2020-07-05 18:10:31,544 DEBUG [sudo] Escalating privileges
+2020-07-05 18:10:31,544 TRACE [sudo] relaying RUST_BACKTRACE=full
+[sudo] Passwort für user:
+2020-07-05 18:10:39,238 TRACE [sudo] Running as Root
+2020-07-05 18:10:39,238 TRACE [sudo] already running as Root
+2020-07-05 18:10:39,238 INFO  [backtrace] entering failing_function
+thread 'main' panicked at 'now you see me fail', examples/backtrace.rs:16:5
+```
 
 ## Run a program with SUID
 

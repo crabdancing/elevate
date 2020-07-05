@@ -1,4 +1,5 @@
 use std::error::Error;
+use std::process::Command;
 
 #[macro_use]
 extern crate log;
@@ -49,10 +50,28 @@ pub fn escalate_if_needed() -> Result<(), Box<dyn Error>> {
         }
     }
     let args = std::env::args();
-    let mut child = std::process::Command::new("/usr/bin/sudo")
-        .args(args)
-        .spawn()
-        .expect("failed to execute child");
+    let mut command: Command = Command::new("/usr/bin/sudo");
+
+    if let Ok(trace) = std::env::var("RUST_BACKTRACE") {
+        let value = match &*trace {
+            "" => None,
+            "1" | "true" | "TRUE" => Some("1"),
+            "full" => Some("full"),
+            invalid => {
+                warn!(
+                    "RUST_BACKTRACE has invalid value {:?} -> defaulting to \"full\"",
+                    invalid
+                );
+                Some("full")
+            }
+        };
+        if let Some(value) = value {
+            trace!("relaying RUST_BACKTRACE={}", value);
+            command.arg(format!("RUST_BACKTRACE={}", value));
+        }
+    }
+
+    let mut child = command.args(args).spawn().expect("failed to execute child");
 
     let ecode = child.wait().expect("failed to wait on child");
 

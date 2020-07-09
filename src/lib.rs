@@ -41,13 +41,17 @@ pub fn check() -> RunningAs {
 }
 
 #[cfg(unix)]
-/// Restart your program with sudo if the user is not privileged enough
+/// Restart your program with sudo if the user is not privileged enough.
+///
+/// Activates SUID privileges when available
 pub fn escalate_if_needed() -> Result<RunningAs, Box<dyn Error>> {
     with_env(&[])
 }
 
 #[cfg(unix)]
-/// Escalate privileges while maintaining
+/// Escalate privileges while maintaining RUST_BACKTRACE and selected environment variables (or none).
+///
+/// Activates SUID privileges when available.
 ///
 /// ```
 /// # if sudo::check() == sudo::RunningAs::Root {

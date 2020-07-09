@@ -66,9 +66,9 @@ pub fn escalate_if_needed() -> Result<(), Box<dyn Error>> {
 
     // Always propagate RUST_BACKTRACE
     if let Ok(trace) = std::env::var("RUST_BACKTRACE") {
-        let value = match &*trace {
+        let value = match &*trace.to_lowercase() {
             "" => None,
-            "1" | "true" | "TRUE" => Some("1"),
+            "1" | "true" => Some("1"),
             "full" => Some("full"),
             invalid => {
                 warn!(

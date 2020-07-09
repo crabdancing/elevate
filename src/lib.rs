@@ -1,22 +1,33 @@
+//! [![crates.io](https://img.shields.io/crates/v/sudo?logo=rust)](https://crates.io/crates/sudo/)
+//! [![docs.rs](https://docs.rs/sudo/badge.svg)](https://docs.rs/sudo)
+//!
+//! Detect if you are running as root, restart self with `sudo` if needed or setup uid zero when running with the SUID flag set.
+//!
+//! ## Requirements
+//!
+//! * The `sudo` program is required to be installed and setup correctly on the target system.
+//! * Linux or Mac OS X tested
+//!     * It should work on *BSD. However, it is not tested.
 use std::error::Error;
 use std::process::Command;
 
 #[macro_use]
 extern crate log;
 
+/// Cross platform representation of the state the current program running
 #[derive(Debug, PartialEq)]
 pub enum RunningAs {
     /// Root or Administrator
     Root,
     /// Running as a normal user
     User,
-    /// Started from SUID
+    /// Started from SUID, a call to `sudo::escalate_if_needed` is required to gain the root privileges
     Suid,
 }
 use RunningAs::*;
 
 #[cfg(unix)]
-/// Check geteuid() to see if we match uid == 0
+/// Check getuid() and geteuid() to learn about the configuration this program is running under
 pub fn check() -> RunningAs {
     let uid = unsafe { libc::getuid() };
     let euid = unsafe { libc::geteuid() };

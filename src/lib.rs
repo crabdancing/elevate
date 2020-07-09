@@ -17,11 +17,12 @@ extern crate log;
 /// Cross platform representation of the state the current program running
 #[derive(Debug, PartialEq)]
 pub enum RunningAs {
-    /// Root or Administrator
+    /// Root (Linux/Mac OS/Unix) or Administrator (Windows)
     Root,
     /// Running as a normal user
     User,
-    /// Started from SUID, a call to `sudo::escalate_if_needed` is required to gain the root privileges
+    /// Started from SUID, a call to `sudo::escalate_if_needed` or `sudo::with_env` is required to claim the root privileges at runtime.
+    /// This does not restart the process.
     Suid,
 }
 use RunningAs::*;

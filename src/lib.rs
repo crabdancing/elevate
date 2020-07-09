@@ -44,6 +44,20 @@ pub fn check() -> RunningAs {
 /// Restart your program with sudo if the user is not privileged enough.
 ///
 /// Activates SUID privileges when available
+///
+/// ```
+/// # use std::error::Error;
+/// # fn main() -> Result<(), Box<dyn Error>> {
+/// #   if sudo::check() == sudo::RunningAs::Root {
+/// sudo::escalate_if_needed()?;
+/// // the following gets only executed in privileged mode
+/// #   } else {
+/// #     eprintln!("not actually testing");
+/// #   }
+/// #   Ok(())
+/// # }
+/// ```
+#[inline]
 pub fn escalate_if_needed() -> Result<RunningAs, Box<dyn Error>> {
     with_env(&[])
 }
@@ -54,10 +68,15 @@ pub fn escalate_if_needed() -> Result<RunningAs, Box<dyn Error>> {
 /// Activates SUID privileges when available.
 ///
 /// ```
-/// # if sudo::check() == sudo::RunningAs::Root {
-/// sudo::with_env(&["CARGO_", "MY_APP_"]);
-/// # } else {
+/// # use std::error::Error;
+/// # fn main() -> Result<(), Box<dyn Error>> {
+/// #   if sudo::check() == sudo::RunningAs::Root {
+/// sudo::with_env(&["CARGO_", "MY_APP_"])?;
+/// // the following gets only executed in privileged mode
+/// #   } else {
 /// #     eprintln!("not actually testing");
+/// #   }
+/// #   Ok(())
 /// # }
 /// ```
 pub fn with_env(prefixes: &[&str]) -> Result<RunningAs, Box<dyn Error>> {

@@ -2,18 +2,22 @@
 extern crate log;
 extern crate simple_logger;
 
-fn main() {
+use std::error::Error;
+
+fn main() -> Result<(), Box<dyn Error>> {
     simple_logger::init().expect("unable to initialize logger");
 
     uid_euid("①");
 
     spawn("export");
 
-    sudo::with_env(&["EXAMPLE_", "CARGO"]).expect("sudo failed");
+    sudo::with_env(&["EXAMPLE_", "CARGO"])?;
 
     uid_euid("②");
 
     spawn("export");
+
+    Ok(())
 }
 
 fn uid_euid(nth: &str) {

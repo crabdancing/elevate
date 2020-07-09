@@ -47,22 +47,24 @@ pub fn escalate_if_needed() -> Result<(), Box<dyn Error>> {
     match current {
         Root => {
             trace!("already running as Root");
-            return Ok(());
-        }
-        User => {
-            debug!("Escalating privileges");
+            return Ok(current);
         }
         Suid => {
             trace!("setuid(0)");
             unsafe {
                 libc::setuid(0);
             }
-            return Ok(());
+            return Ok(current);
+        }
+        User => {
+            debug!("Escalating privileges");
         }
     }
+
     let args = std::env::args();
     let mut command: Command = Command::new("/usr/bin/sudo");
 
+    // Always propagate RUST_BACKTRACE
     if let Ok(trace) = std::env::var("RUST_BACKTRACE") {
         let value = match &*trace {
             "" => None,

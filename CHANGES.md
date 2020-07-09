@@ -2,7 +2,7 @@
 
 ## unreleased
 
-* Add API for keeping environment variables with a certain prefix
+* Add API for keeping environment variables with a certain prefixes
 * Make matching RUST_BACKTRACE case-in-sensitive
 * More documentation improvements
 

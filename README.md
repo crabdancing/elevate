@@ -52,6 +52,40 @@ $ RUST_BACKTRACE=full cargo run --example backtrace
 thread 'main' panicked at 'now you see me fail', examples/backtrace.rs:16:5
 ```
 
+## Keeping part of the environment
+
+You can keep parts of your environment across the sudo barrier.
+This enables more configuration options often used in daemons or cloud environments:
+
+```rust
+    // keeping all environment variables starting with "EXAMPLE_" or "CARGO"
+    sudo::with_env(&["EXAMPLE_", "CARGO"]).expect("sudo failed");
+```
+
+**Warning:** This may introduce security problems to your application if untrusted users are able to set these variables.
+
+```bash
+$ EXAMPLE_EXEC='$(ls)' EXAMPLE_BTICKS='`ls`' cargo run --example environment
+2020-07-07 16:32:11,261 INFO  [environment] ① uid: 1000; euid: 1000;
+
+...
+
+declare -x EXAMPLE_BTICKS="\`ls\`"
+declare -x EXAMPLE_EXEC="\$(ls)"
+...
+
+[sudo] password for user:
+
+2020-07-07 16:32:11,285 TRACE [sudo] Running as Root
+2020-07-07 16:32:11,285 TRACE [sudo] already running as Root
+2020-07-07 16:32:11,285 INFO  [environment] ② uid: 0; euid: 0;
+
+...
+
+declare -x EXAMPLE_BTICKS="\`ls\`"
+declare -x EXAMPLE_EXEC="\$(ls)"
+```
+
 ## Run a program with SUID
 
 ```bash

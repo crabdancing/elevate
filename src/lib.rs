@@ -41,7 +41,22 @@ pub fn check() -> RunningAs {
 }
 
 #[cfg(unix)]
-pub fn escalate_if_needed() -> Result<(), Box<dyn Error>> {
+/// Restart your program with sudo if the user is not privileged enough
+pub fn escalate_if_needed() -> Result<RunningAs, Box<dyn Error>> {
+    with_env(&[])
+}
+
+#[cfg(unix)]
+/// Escalate privileges while maintaining
+///
+/// ```
+/// # if sudo::check() == sudo::RunningAs::Root {
+/// sudo::with_env(&["CARGO_", "MY_APP_"]);
+/// # } else {
+/// #     eprintln!("not actually testing");
+/// # }
+/// ```
+pub fn with_env(prefixes: &[&str]) -> Result<RunningAs, Box<dyn Error>> {
     let current = check();
     trace!("Running as {:?}", current);
     match current {
@@ -81,6 +96,15 @@ pub fn escalate_if_needed() -> Result<(), Box<dyn Error>> {
         if let Some(value) = value {
             trace!("relaying RUST_BACKTRACE={}", value);
             command.arg(format!("RUST_BACKTRACE={}", value));
+        }
+    }
+
+    if prefixes.is_empty() == false {
+        for (name, value) in std::env::vars().filter(|(name, _)| name != "RUST_BACKTRACE") {
+            if prefixes.iter().any(|prefix| name.starts_with(prefix)) {
+                trace!("propagating {}={}", name, value);
+                command.arg(format!("{}={}", name, value));
+            }
         }
     }
 

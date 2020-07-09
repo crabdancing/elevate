@@ -2,9 +2,13 @@
 
 ## unreleased
 
+* Add API for keeping environment variables with a certain prefix
+* Make matching RUST_BACKTRACE case-in-sensitive
+* More documentation improvements
+
 ## 0.4.0
 
-* Propagate RUST_BACKTRACE environement variable
+* Propagate RUST_BACKTRACE environment variable
 * Add example `backtrace.rs`
 * Build examples with CI too
 

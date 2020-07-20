@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## 0.5.0
+
 * Add API for keeping environment variables with a certain prefixes
 * Make matching RUST_BACKTRACE case-in-sensitive
 * Return the previous environment when escalating from SUID

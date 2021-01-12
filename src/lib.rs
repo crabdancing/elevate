@@ -100,7 +100,13 @@ pub fn with_env(prefixes: &[&str]) -> Result<RunningAs, Box<dyn Error>> {
         }
     }
 
-    let args = std::env::args();
+    let mut args: Vec<_> = std::env::args().collect();
+    if let Some(absolute_path) = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.to_str().map(|p| p.to_string()))
+    {
+        args[0] = absolute_path;
+    }
     let mut command: Command = Command::new("/usr/bin/sudo");
 
     // Always propagate RUST_BACKTRACE

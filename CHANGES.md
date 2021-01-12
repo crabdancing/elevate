@@ -2,6 +2,10 @@
 
 ## unreleased
 
+## 0.6.0
+
+* Use full path for the `sudo` command while escalating
+
 ## 0.5.0
 
 * Add API for keeping environment variables with a certain prefixes

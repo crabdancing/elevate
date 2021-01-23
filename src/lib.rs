@@ -8,6 +8,8 @@
 //! * The `sudo` program is required to be installed and setup correctly on the target system.
 //! * Linux or Mac OS X tested
 //!     * It should work on *BSD. However, it is not tested.
+#![allow(clippy::bool_comparison)]
+
 use std::error::Error;
 use std::process::Command;
 

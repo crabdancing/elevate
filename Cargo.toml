@@ -20,4 +20,4 @@ log = "0.4"
 libc = "0.2"
 
 [dev-dependencies]
-simple_logger = "1.6"
+simple_logger = "1.8"

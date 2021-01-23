@@ -2,6 +2,8 @@
 
 ## unreleased
 
+* Update dev deps
+
 ## 0.6.0
 
 * Use full path for the `sudo` command while escalating

@@ -3,7 +3,9 @@ extern crate log;
 extern crate simple_logger;
 
 fn main() {
-    simple_logger::init().expect("unable to initialize logger");
+    simple_logger::SimpleLogger::new()
+        .init()
+        .expect("unable to initialize logger");
 
     uid_euid("①");
 

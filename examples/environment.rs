@@ -5,7 +5,9 @@ extern crate simple_logger;
 use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    simple_logger::init().expect("unable to initialize logger");
+    simple_logger::SimpleLogger::new()
+        .init()
+        .expect("unable to initialize logger");
 
     uid_euid("①");
 

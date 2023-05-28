@@ -1,10 +1,10 @@
 [package]
 name = "sudo"
 description = "Detect if you are running as root, restart self with sudo if needed or setup uid zero when running with the SUID flag set."
-version = "0.6.0"
+version = "0.6.1"
 authors = ["Stefan Schindler <dns2utf8@estada.ch>"]
 license = "MIT/Apache-2.0"
-edition = "2018"
+edition = "2021"
 
 repository = "https://gitlab.com/dns2utf8/sudo.rs"
 readme = "README.md"
@@ -16,8 +16,8 @@ include = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-log = "0.4"
-libc = "0.2"
+log = "0.4.18"
+libc = "0.2.144"
 
 [dev-dependencies]
 simple_logger = "1.8"

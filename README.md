@@ -17,14 +17,14 @@ First, add sudo to your `Cargo.toml`:
 
 ```yaml
 [dependencies]
-sudo = "0.6"
+elevate = "0.6.1"
 ```
 
 In your `main.rs`:
 
 ```rust
 fn main() -> Result<(), Box<dyn Error>> {
-    sudo::escalate_if_needed()?;
+    elevate::escalate_if_needed()?;
     println!("Hello, Root-World!");
     Ok( () )
 }
@@ -59,7 +59,7 @@ This enables more configuration options often used in daemons or cloud environme
 
 ```rust
     // keeping all environment variables starting with "EXAMPLE_" or "CARGO"
-    sudo::with_env(&["EXAMPLE_", "CARGO"]).expect("sudo failed");
+    elevate::with_env(&["EXAMPLE_", "CARGO"]).expect("sudo failed");
 ```
 
 **Warning:** This may introduce security problems to your application if untrusted users are able to set these variables.

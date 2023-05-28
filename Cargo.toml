@@ -1,12 +1,12 @@
 [package]
-name = "sudo"
+name = "elevate"
 description = "Detect if you are running as root, restart self with sudo if needed or setup uid zero when running with the SUID flag set."
 version = "0.6.1"
-authors = ["Stefan Schindler <dns2utf8@estada.ch>"]
+authors = ["Stefan Schindler <dns2utf8@estada.ch>" "Alexandria P"]
 license = "MIT/Apache-2.0"
 edition = "2021"
 
-repository = "https://gitlab.com/dns2utf8/sudo.rs"
+repository = "https://github.com/alxpettit/elevate"
 readme = "README.md"
 include = [
     "README.md",

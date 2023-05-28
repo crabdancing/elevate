@@ -109,7 +109,7 @@ pub fn with_env(prefixes: &[&str]) -> Result<RunningAs, Box<dyn Error>> {
     {
         args[0] = absolute_path;
     }
-    let mut command: Command = Command::new("/usr/bin/sudo");
+    let mut command: Command = Command::new("sudo");
 
     // Always propagate RUST_BACKTRACE
     if let Ok(trace) = std::env::var("RUST_BACKTRACE") {

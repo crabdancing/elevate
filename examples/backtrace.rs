@@ -7,7 +7,7 @@ fn main() {
         .init()
         .expect("unable to initialize logger");
 
-    sudo::escalate_if_needed().expect("sudo failed");
+    elevate::escalate_if_needed().expect("sudo failed");
 
     failing_function();
 }

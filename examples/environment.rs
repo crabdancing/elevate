@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     spawn("export");
 
-    sudo::with_env(&["EXAMPLE_", "CARGO"])?;
+    elevate::with_env(&["EXAMPLE_", "CARGO"])?;
 
     uid_euid("②");
 

@@ -9,13 +9,13 @@ fn main() {
 
     uid_euid("①");
 
-    spawn("/usr/bin/id");
+    spawn("id");
 
-    sudo::escalate_if_needed().expect("sudo failed");
+    elevate::escalate_if_needed().expect("sudo failed");
 
     uid_euid("②");
 
-    spawn("/usr/bin/id");
+    spawn("id");
 }
 
 fn uid_euid(nth: &str) {

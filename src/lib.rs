@@ -23,7 +23,7 @@ pub enum RunningAs {
     Root,
     /// Running as a normal user
     User,
-    /// Started from SUID, a call to `sudo::escalate_if_needed` or `sudo::with_env` is required to claim the root privileges at runtime.
+    /// Started from SUID, a call to `elevate::escalate_if_needed` or `elevate::with_env` is required to claim the root privileges at runtime.
     /// This does not restart the process.
     Suid,
 }
@@ -51,8 +51,8 @@ pub fn check() -> RunningAs {
 /// ```
 /// # use std::error::Error;
 /// # fn main() -> Result<(), Box<dyn Error>> {
-/// #   if sudo::check() == sudo::RunningAs::Root {
-/// sudo::escalate_if_needed()?;
+/// #   if elevate::check() == elevate::RunningAs::Root {
+/// elevate::escalate_if_needed()?;
 /// // the following gets only executed in privileged mode
 /// #   } else {
 /// #     eprintln!("not actually testing");
@@ -73,8 +73,8 @@ pub fn escalate_if_needed() -> Result<RunningAs, Box<dyn Error>> {
 /// ```
 /// # use std::error::Error;
 /// # fn main() -> Result<(), Box<dyn Error>> {
-/// #   if sudo::check() == sudo::RunningAs::Root {
-/// sudo::with_env(&["CARGO_", "MY_APP_"])?;
+/// #   if elevate::check() == elevate::RunningAs::Root {
+/// elevate::with_env(&["CARGO_", "MY_APP_"])?;
 /// // the following gets only executed in privileged mode
 /// #   } else {
 /// #     eprintln!("not actually testing");
